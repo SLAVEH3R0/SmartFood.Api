@@ -40,3 +40,6 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,macos
+
+#appsettings
+appsettings.Development.json
