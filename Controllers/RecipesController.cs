@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartFood.Api.Models;
+using System;
+using SmartFood.Api.Services;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartFood.Api.Controllers;
 
@@ -7,45 +11,45 @@ namespace SmartFood.Api.Controllers;
 [Route("api/[controller]")]
 public class RecipesController : ControllerBase
 {
+    private readonly DatabaseContext _db;
+
+    public RecipesController(DatabaseContext db)
+    {
+        _db = db;
+    }
+
     [HttpGet]
     public async Task<IEnumerable<Recipe>> Get()
     {
-        return await Task.FromResult(
-            new List<Recipe>
-            {
-                new Recipe
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Recipe 1",
-                    PreparationTime = 10,
-                    Servings = 2,
-                    Ingredients = "Ingredient 1, Ingredient 2",
-                    Description = "Description 1",
-                    Category = new Category
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Category 1"
-                    },
-                    Photo = "https://picsum.photos/id/1060/400/300",
-                    CreatedAt = DateTime.Now
-                },
-                new Recipe
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Recipe 2",
-                    PreparationTime = 20,
-                    Servings = 3,
-                    Ingredients = "Ingredient 3, Ingredient 4",
-                    Description = "Description 2",
-                    Category = new Category
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Category 2"
-                    },
-                    Photo = "https://picsum.photos/id/1080/400/300",
-                    CreatedAt = DateTime.Now
-                }
-            }
-        );
+        return await _db.Recipes.ToListAsync();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Recipe>> Get(int id)
+    {
+        var recipe = await _db.Recipes.FindAsync(id);
+
+        if (recipe == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(recipe);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Recipe>> Post(Recipe recipe)
+    {
+        if (recipe == null)
+        {
+            return BadRequest();
+        }
+
+        recipe.CreatedAt = DateTime.Now;
+
+        _db.Recipes.Add(recipe);
+        await _db.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Get), new { id = recipe.Id }, recipe);
     }
 }

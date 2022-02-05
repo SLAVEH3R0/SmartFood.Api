@@ -12,4 +12,10 @@ public class DatabaseContext : DbContext
     public DbSet<Recipe> Recipes { get; set; }
 
     public DbSet<Category> Categories { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Recipe>().ToContainer("recipes");
+        modelBuilder.Entity<Category>().ToContainer("categories");
+    }
 }
