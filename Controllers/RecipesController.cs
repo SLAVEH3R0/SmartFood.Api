@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartFood.Api.Models;
-using System;
 using SmartFood.Api.Services;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace SmartFood.Api.Controllers;
