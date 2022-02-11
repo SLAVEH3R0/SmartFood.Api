@@ -17,10 +17,7 @@ public class RecipesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Recipe>> Get()
-    {
-        return await _db.Recipes.ToListAsync();
-    }
+    public async Task<IEnumerable<Recipe>> Get() => await _db.Recipes.ToListAsync();
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Recipe>> Get(int id)

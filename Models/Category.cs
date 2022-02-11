@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace SmartFood.Api.Models;
@@ -10,5 +9,5 @@ public class Category
 
     [Required]
     [StringLength(50)]
-    public String Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

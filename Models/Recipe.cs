@@ -9,7 +9,7 @@ public class Recipe
 
     [Required]
     [StringLength(50)]
-    public String Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Required]
     public int PreparationTime { get; set; }
@@ -19,16 +19,16 @@ public class Recipe
 
     [Required]
     [StringLength(300)]
-    public String Ingredients { get; set; }
+    public string Ingredients { get; set; } = string.Empty;
 
     [Required]
     [StringLength(300)]
-    public String Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Required]
-    public Category Category { get; set; }
+    public Category Category { get; set; } = new Category();
 
-    public String Photo { get; set; }
+    public string Photo { get; set; } = string.Empty;
 
     [Required]
     public DateTime CreatedAt { get; set; }

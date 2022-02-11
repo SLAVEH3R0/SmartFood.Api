@@ -9,9 +9,9 @@ public class DatabaseContext : DbContext
     {
     }
     
-    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Recipe> Recipes { get; set; } = default!;
 
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
