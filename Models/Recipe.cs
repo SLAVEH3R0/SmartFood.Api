@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SmartFood.Api.Models;
 
@@ -25,8 +26,9 @@ public class Recipe
     [StringLength(300)]
     public string Description { get; set; } = string.Empty;
 
-    [Required]
-    public Category Category { get; set; } = new Category();
+    [JsonIgnore]
+    public Guid CategoryId { get; set; }
+    public Category? Category { get; set; }
 
     public string Photo { get; set; } = string.Empty;
 
